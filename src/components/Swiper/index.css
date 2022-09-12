@@ -1,7 +1,6 @@
 .template {
   min-width: 500px;
   min-height: 500px;
-  margin: 10px;
 }
 
 .template:nth-child(1) {
@@ -26,7 +25,7 @@
 
 .container {
   margin: 0 auto;
-  width: 520px;
+  width: 500px;
   overflow: hidden;
 }
 
