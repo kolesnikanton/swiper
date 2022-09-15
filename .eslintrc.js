@@ -20,5 +20,8 @@ module.exports = {
   rules: {
     'no-console': 'off',
     'no-plusplus': 'off',
+    'import/prefer-default-export': 'off',
+    'import/no-import-module-exports': 'off',
+    'react/no-array-index-key': 'off',
   },
 };
