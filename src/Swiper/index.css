@@ -9,8 +9,8 @@
 
 .template {
   display: flex;
-  align-items: center;
-  overflow: hidden;
+  flex-shrink: 0;
+  flex-basis: 100%;
 }
 
 .template > * {

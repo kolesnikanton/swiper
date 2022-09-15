@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 
 import './index.css';
 
@@ -7,19 +7,24 @@ let isMoving = false;
 let startingClientX = 0;
 let distanceSwiped = 0;
 
-export function Swiper({
+export default function Swiper({
   children,
-  width: SLIDE_WIDTH = 500,
-  height: SLIDE_HEIGHT = 500,
 }) {
-  const slidesNumber = children.length;
-  const maxDistanceToSwipe = SLIDE_WIDTH * (children.length - 1);
-
   const [paginationData, setPaginationData] = useState({
     currentSlide: 1,
   });
 
+  const [slideWidth, setWidth] = useState(null);
+
+  const containerRef = useRef(null);
   const swiperRef = useRef(null);
+
+  useEffect(() => {
+    setWidth(containerRef.current.parentElement.clientWidth);
+  }, []);
+
+  const slidesNumber = children.length;
+  const maxDistanceToSwipe = slideWidth * (children.length - 1);
 
   const getClientX = (event) => {
     if (event.touches) {
@@ -35,11 +40,11 @@ export function Swiper({
     startingClientX = clientX + distanceSwiped;
   };
 
-  const getCurrentSlide = () => Math.round(distanceSwiped / SLIDE_WIDTH);
+  const getCurrentSlide = () => Math.round(distanceSwiped / slideWidth);
 
   const roundSlide = () => {
     const currentSlide = getCurrentSlide();
-    const currentSlideDistance = currentSlide * SLIDE_WIDTH;
+    const currentSlideDistance = currentSlide * slideWidth;
 
     while (currentSlideDistance !== distanceSwiped) {
       if (currentSlideDistance > distanceSwiped) {
@@ -76,10 +81,10 @@ export function Swiper({
   };
 
   const handleSwipeButton = ({ direction }) => {
-    let distance = distanceSwiped + SLIDE_WIDTH;
+    let distance = distanceSwiped + slideWidth;
 
     if (direction === 'left') {
-      distance = distanceSwiped - SLIDE_WIDTH;
+      distance = distanceSwiped - slideWidth;
     }
 
     if (distance > maxDistanceToSwipe || distance < 0) {
@@ -103,7 +108,7 @@ export function Swiper({
 
   return (
     <>
-      <div className="container" style={{ width: SLIDE_WIDTH, height: SLIDE_HEIGHT }}>
+      <div ref={containerRef} className="container">
         {/*
           eslint-disable-next-line
           jsx-a11y/no-static-element-interactions,
@@ -121,16 +126,7 @@ export function Swiper({
           ref={swiperRef}
         >
           {children.map((child, index) => (
-            <div
-              key={index}
-              className="template"
-              style={{
-                minWidth: SLIDE_WIDTH,
-                width: SLIDE_WIDTH,
-                minHeight: SLIDE_HEIGHT,
-                height: SLIDE_HEIGHT,
-              }}
-            >
+            <div key={index} className="template">
               {child}
             </div>
           ))}
@@ -148,7 +144,3 @@ export function Swiper({
     </>
   );
 }
-
-module.exports = {
-  Swiper,
-};
