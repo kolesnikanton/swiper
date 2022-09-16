@@ -7,6 +7,7 @@ let isMoving = false;
 let startingClientX = 0;
 let distanceSwiped = 0;
 
+// TODO: Need to optimize
 export default function Swiper({
   children,
 }) {
@@ -38,29 +39,23 @@ export default function Swiper({
     isMoving = true;
     const clientX = getClientX(event);
     startingClientX = clientX + distanceSwiped;
+    swiperRef.current.style.transition = 'transform 0s';
   };
 
   const getCurrentSlide = () => Math.round(distanceSwiped / slideWidth);
 
-  const roundSlide = () => {
-    const currentSlide = getCurrentSlide();
+  const roundSlide = ({ currentSlide }) => {
     const currentSlideDistance = currentSlide * slideWidth;
 
-    while (currentSlideDistance !== distanceSwiped) {
-      if (currentSlideDistance > distanceSwiped) {
-        distanceSwiped += 1;
-      } else {
-        distanceSwiped -= 1;
-      }
-
-      swiperRef.current.style.transform = `translate(${-distanceSwiped}px, 0px)`;
-    }
+    swiperRef.current.style.transition = 'transform 0.2s';
+    swiperRef.current.style.transform = `translate(${-currentSlideDistance}px, 0px)`;
+    distanceSwiped = currentSlideDistance;
   };
 
   const handleSwipeEnd = () => {
     isMoving = false;
-    roundSlide();
     const currentSlide = getCurrentSlide();
+    roundSlide({ currentSlide });
     setPaginationData({ currentSlide: currentSlide + 1 });
   };
 
@@ -80,30 +75,55 @@ export default function Swiper({
     distanceSwiped = distance;
   };
 
-  const handleSwipeButton = ({ direction }) => {
-    let distance = distanceSwiped + slideWidth;
+  // const handleSwipeButton = ({ direction }) => {
+  //   let distance = distanceSwiped + slideWidth;
 
-    if (direction === 'left') {
-      distance = distanceSwiped - slideWidth;
-    }
+  //   if (direction === 'left') {
+  //     distance = distanceSwiped - slideWidth;
+  //   }
 
-    if (distance > maxDistanceToSwipe || distance < 0) {
-      return;
-    }
+  //   if (distance > maxDistanceToSwipe || distance < 0) {
+  //     return;
+  //   }
 
+  //   swiperRef.current.style.transform = `translate(${-distance}px, 0px)`;
+  //   distanceSwiped = distance;
+
+  //   const currentSlide = getCurrentSlide();
+  //   setPaginationData({ currentSlide: currentSlide + 1 });
+  // };
+
+  // const handleRightButton = () => {
+  //   handleSwipeButton({ direction: 'right' });
+  // };
+
+  // const handleLeftButton = () => {
+  //   handleSwipeButton({ direction: 'left' });
+  // };
+
+  const handlePaginationButton = (slideNumber) => {
+    swiperRef.current.style.transition = 'transform 0.8s ease-in';
+    const distance = slideWidth * (slideNumber - 1);
     swiperRef.current.style.transform = `translate(${-distance}px, 0px)`;
+
     distanceSwiped = distance;
-
-    const currentSlide = getCurrentSlide();
-    setPaginationData({ currentSlide: currentSlide + 1 });
+    setPaginationData({ currentSlide: slideNumber });
   };
 
-  const handleRightButton = () => {
-    handleSwipeButton({ direction: 'right' });
-  };
+  const renderPagination = () => {
+    const buttons = [];
 
-  const handleLeftButton = () => {
-    handleSwipeButton({ direction: 'left' });
+    for (let i = 0; i < slidesNumber; i++) {
+      const slideNumber = i + 1;
+      const isActiveButton = slideNumber === paginationData.currentSlide;
+      const className = isActiveButton ? 'pagination__button pagination__button_active' : 'pagination__button';
+      buttons.push(
+        // eslint-disable-next-line jsx-a11y/control-has-associated-label
+        <button id={slideNumber} disabled={isActiveButton} className={className} type="button" key={slideNumber} onClick={() => handlePaginationButton(slideNumber)} />,
+      );
+    }
+
+    return buttons;
   };
 
   return (
@@ -124,6 +144,7 @@ export default function Swiper({
           onMouseOut={handleSwipeEnd}
           onTouchEnd={handleSwipeEnd}
           ref={swiperRef}
+          style={{ transform: 'translate(0, 0)', transition: 'transform 0s' }}
         >
           {children.map((child, index) => (
             <div key={index} className="template">
@@ -132,7 +153,7 @@ export default function Swiper({
           ))}
         </div>
       </div>
-      <div style={{ display: 'flex', justifyContent: 'center' }}>
+      {/* <div style={{ display: 'flex', justifyContent: 'center' }}>
         <button type="button" onClick={handleLeftButton}>Left</button>
         <div>
           {paginationData.currentSlide}
@@ -140,6 +161,9 @@ export default function Swiper({
           {slidesNumber}
         </div>
         <button type="button" onClick={handleRightButton}>Right</button>
+      </div> */}
+      <div className="pagination">
+        {renderPagination()}
       </div>
     </>
   );

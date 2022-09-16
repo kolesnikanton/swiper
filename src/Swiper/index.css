@@ -23,3 +23,37 @@
   user-select: none;
   pointer-events: none;
 }
+
+.pagination {
+  display: flex;
+  justify-content: center;
+}
+
+.pagination__button {
+  margin: 15px 5px;
+  padding: 0;
+  width: 10px;
+  height: 10px;
+  border: none;
+  border-radius: 50%;
+  background: #707070;
+  color: #707070;
+  cursor: pointer;
+  opacity: 0.4;
+}
+
+.pagination__button:hover {
+  opacity: 0.6;
+}
+
+.pagination__button_active {
+  opacity: 1;
+}
+
+.pagination__button:disabled:hover {
+  opacity: 1;
+}
+
+.pagination__button:disabled {
+  cursor: default;
+}
