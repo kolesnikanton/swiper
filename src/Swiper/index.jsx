@@ -6,6 +6,9 @@ import './index.css';
 let isMoving = false;
 let startingClientX = 0;
 let distanceSwiped = 0;
+let startSwipeTime = 0;
+let endSwipeTime = 0;
+let isSwipeRight = true;
 
 // TODO: Need to optimize
 export default function Swiper({
@@ -36,6 +39,7 @@ export default function Swiper({
   };
 
   const handleSwipeStart = (event) => {
+    startSwipeTime = Date.now();
     isMoving = true;
     const clientX = getClientX(event);
     startingClientX = clientX + distanceSwiped;
@@ -53,8 +57,19 @@ export default function Swiper({
   };
 
   const handleSwipeEnd = () => {
+    endSwipeTime = Date.now() - startSwipeTime;
     isMoving = false;
-    const currentSlide = getCurrentSlide();
+
+    let currentSlide = getCurrentSlide();
+
+    if (endSwipeTime < 500) {
+      if (!isSwipeRight) {
+        currentSlide = Math.ceil(distanceSwiped / slideWidth);
+      } else {
+        currentSlide = Math.floor(distanceSwiped / slideWidth);
+      }
+    }
+
     roundSlide({ currentSlide });
     setPaginationData({ currentSlide: currentSlide + 1 });
   };
@@ -70,6 +85,8 @@ export default function Swiper({
     if (distance < -50 || distance > maxDistanceToSwipe + 50) {
       handleSwipeEnd();
     }
+
+    isSwipeRight = distanceSwiped > distance;
 
     swiperRef.current.style.transform = `translate(${-distance}px, 0px)`;
     distanceSwiped = distance;
