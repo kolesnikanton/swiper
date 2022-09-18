@@ -1,13 +1,13 @@
 /* eslint-disable react/prop-types */
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef } from 'react';
 
+import PaginationButton from './PaginationButton';
 import './index.css';
 
 let isMoving = false;
 let startingClientX = 0;
 let distanceSwiped = 0;
 let startSwipeTime = 0;
-let endSwipeTime = 0;
 let isSwipeRight = true;
 
 // TODO: Need to optimize
@@ -18,17 +18,14 @@ export default function Swiper({
     currentSlide: 1,
   });
 
-  const [slideWidth, setWidth] = useState(null);
-
   const containerRef = useRef(null);
   const swiperRef = useRef(null);
 
-  useEffect(() => {
-    setWidth(containerRef.current.parentElement.clientWidth);
-  }, []);
-
   const slidesNumber = children.length;
-  const maxDistanceToSwipe = slideWidth * (children.length - 1);
+
+  const getSlideWidth = () => containerRef.current?.parentElement?.clientWidth;
+
+  const getMaxDistanceToSwipe = () => getSlideWidth() * (children.length - 1);
 
   const getClientX = (event) => {
     if (event.touches) {
@@ -36,6 +33,36 @@ export default function Swiper({
     }
 
     return event.nativeEvent.clientX;
+  };
+
+  const getRoundedSlideNumber = () => Math.round(distanceSwiped / getSlideWidth());
+
+  const roundSlide = ({ roundedSlide, slideWidth }) => {
+    const roundedSlideDistance = roundedSlide * slideWidth;
+
+    swiperRef.current.style.transition = 'transform 0.2s';
+    swiperRef.current.style.transform = `translate(${-roundedSlideDistance}px, 0px)`;
+    distanceSwiped = roundedSlideDistance;
+
+    if (paginationData.currentSlide !== roundedSlide + 1) {
+      setPaginationData({ currentSlide: roundedSlide + 1 });
+    }
+  };
+
+  const roundSlideByShortTime = ({ slideWidth }) => {
+    let roundedSlide = isSwipeRight
+      ? Math.floor(distanceSwiped / slideWidth)
+      : Math.ceil(distanceSwiped / slideWidth);
+
+    if (roundedSlide < 0) {
+      roundedSlide = 0;
+    }
+
+    if (roundedSlide >= slidesNumber) {
+      roundedSlide = slidesNumber - 1;
+    }
+
+    roundSlide({ roundedSlide, slideWidth });
   };
 
   const handleSwipeStart = (event) => {
@@ -46,32 +73,26 @@ export default function Swiper({
     swiperRef.current.style.transition = 'transform 0s';
   };
 
-  const getCurrentSlide = () => Math.round(distanceSwiped / slideWidth);
-
-  const roundSlide = ({ currentSlide }) => {
-    const currentSlideDistance = currentSlide * slideWidth;
-
-    swiperRef.current.style.transition = 'transform 0.2s';
-    swiperRef.current.style.transform = `translate(${-currentSlideDistance}px, 0px)`;
-    distanceSwiped = currentSlideDistance;
-  };
+  const isPossibleNextSlide = ({ distance }) => (
+    distance < -100 || distance > getMaxDistanceToSwipe() + 100
+  );
 
   const handleSwipeEnd = () => {
-    endSwipeTime = Date.now() - startSwipeTime;
-    isMoving = false;
-
-    let currentSlide = getCurrentSlide();
-
-    if (endSwipeTime < 500) {
-      if (!isSwipeRight) {
-        currentSlide = Math.ceil(distanceSwiped / slideWidth);
-      } else {
-        currentSlide = Math.floor(distanceSwiped / slideWidth);
-      }
+    if (!isMoving) {
+      return;
     }
 
-    roundSlide({ currentSlide });
-    setPaginationData({ currentSlide: currentSlide + 1 });
+    isMoving = false;
+
+    const endSwipeTime = Date.now() - startSwipeTime;
+    const slideWidth = getSlideWidth();
+
+    if (endSwipeTime < 500) {
+      roundSlideByShortTime({ slideWidth });
+    } else {
+      const roundedSlide = getRoundedSlideNumber();
+      roundSlide({ roundedSlide, slideWidth });
+    }
   };
 
   const handleSwipe = (event) => {
@@ -82,8 +103,8 @@ export default function Swiper({
     const clientX = getClientX(event);
     const distance = startingClientX - clientX;
 
-    if (distance < -50 || distance > maxDistanceToSwipe + 50) {
-      handleSwipeEnd();
+    if (isPossibleNextSlide({ distance })) {
+      return;
     }
 
     isSwipeRight = distanceSwiped > distance;
@@ -92,35 +113,9 @@ export default function Swiper({
     distanceSwiped = distance;
   };
 
-  // const handleSwipeButton = ({ direction }) => {
-  //   let distance = distanceSwiped + slideWidth;
-
-  //   if (direction === 'left') {
-  //     distance = distanceSwiped - slideWidth;
-  //   }
-
-  //   if (distance > maxDistanceToSwipe || distance < 0) {
-  //     return;
-  //   }
-
-  //   swiperRef.current.style.transform = `translate(${-distance}px, 0px)`;
-  //   distanceSwiped = distance;
-
-  //   const currentSlide = getCurrentSlide();
-  //   setPaginationData({ currentSlide: currentSlide + 1 });
-  // };
-
-  // const handleRightButton = () => {
-  //   handleSwipeButton({ direction: 'right' });
-  // };
-
-  // const handleLeftButton = () => {
-  //   handleSwipeButton({ direction: 'left' });
-  // };
-
   const handlePaginationButton = (slideNumber) => {
     swiperRef.current.style.transition = 'transform 0.8s ease-in';
-    const distance = slideWidth * (slideNumber - 1);
+    const distance = getSlideWidth() * (slideNumber - 1);
     swiperRef.current.style.transform = `translate(${-distance}px, 0px)`;
 
     distanceSwiped = distance;
@@ -132,11 +127,14 @@ export default function Swiper({
 
     for (let i = 0; i < slidesNumber; i++) {
       const slideNumber = i + 1;
-      const isActiveButton = slideNumber === paginationData.currentSlide;
-      const className = isActiveButton ? 'pagination__button pagination__button_active' : 'pagination__button';
+
       buttons.push(
-        // eslint-disable-next-line jsx-a11y/control-has-associated-label
-        <button id={slideNumber} disabled={isActiveButton} className={className} type="button" key={slideNumber} onClick={() => handlePaginationButton(slideNumber)} />,
+        <PaginationButton
+          slideNumber={slideNumber}
+          currentSlideNumber={paginationData.currentSlide}
+          key={slideNumber}
+          onClick={handlePaginationButton}
+        />,
       );
     }
 
@@ -170,15 +168,6 @@ export default function Swiper({
           ))}
         </div>
       </div>
-      {/* <div style={{ display: 'flex', justifyContent: 'center' }}>
-        <button type="button" onClick={handleLeftButton}>Left</button>
-        <div>
-          {paginationData.currentSlide}
-          /
-          {slidesNumber}
-        </div>
-        <button type="button" onClick={handleRightButton}>Right</button>
-      </div> */}
       <div className="pagination">
         {renderPagination()}
       </div>
