@@ -11,6 +11,9 @@
   display: flex;
   flex-shrink: 0;
   flex-basis: 100%;
+
+  /* To get rid of flicker */
+  transform: translate3d(0, 0, 0);
 }
 
 .template > * {

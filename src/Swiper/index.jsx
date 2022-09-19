@@ -1,6 +1,7 @@
 /* eslint-disable react/prop-types */
 import React, { useState, useRef } from 'react';
 
+import SlideContainer from './SlideContainer';
 import PaginationButton from './PaginationButton';
 import './index.css';
 
@@ -10,7 +11,6 @@ let distanceSwiped = 0;
 let startSwipeTime = 0;
 let isSwipeRight = true;
 
-// TODO: Need to optimize
 export default function Swiper({
   children,
 }) {
@@ -73,7 +73,7 @@ export default function Swiper({
     swiperRef.current.style.transition = 'transform 0s';
   };
 
-  const isPossibleNextSlide = ({ distance }) => (
+  const isNextSlideOut = ({ distance }) => (
     distance < -100 || distance > getMaxDistanceToSwipe() + 100
   );
 
@@ -103,7 +103,7 @@ export default function Swiper({
     const clientX = getClientX(event);
     const distance = startingClientX - clientX;
 
-    if (isPossibleNextSlide({ distance })) {
+    if (isNextSlideOut({ distance })) {
       return;
     }
 
@@ -144,29 +144,13 @@ export default function Swiper({
   return (
     <>
       <div ref={containerRef} className="container">
-        {/*
-          eslint-disable-next-line
-          jsx-a11y/no-static-element-interactions,
-          jsx-a11y/mouse-events-have-key-events
-        */}
-        <div
-          className="swiper"
-          onMouseDown={handleSwipeStart}
-          onTouchStart={handleSwipeStart}
-          onMouseMove={handleSwipe}
-          onTouchMove={handleSwipe}
-          onMouseUp={handleSwipeEnd}
-          onMouseOut={handleSwipeEnd}
-          onTouchEnd={handleSwipeEnd}
+        <SlideContainer
+          slides={children}
           ref={swiperRef}
-          style={{ transform: 'translate(0, 0)', transition: 'transform 0s' }}
-        >
-          {children.map((child, index) => (
-            <div key={index} className="template">
-              {child}
-            </div>
-          ))}
-        </div>
+          handleSwipeStart={handleSwipeStart}
+          handleSwipe={handleSwipe}
+          handleSwipeEnd={handleSwipeEnd}
+        />
       </div>
       <div className="pagination">
         {renderPagination()}
