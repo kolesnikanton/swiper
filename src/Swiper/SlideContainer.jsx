@@ -8,6 +8,7 @@ const SlideContainer = React.forwardRef(({
   handleSwipe,
   handleSwipeEnd,
   slides,
+  initialTransformTranslateTime,
 }, swiperRef) => (
   /*
     eslint-disable-next-line
@@ -24,7 +25,7 @@ const SlideContainer = React.forwardRef(({
     onMouseOut={handleSwipeEnd}
     onTouchEnd={handleSwipeEnd}
     ref={swiperRef}
-    style={{ transform: 'translate(0, 0)', transition: 'transform 0s' }}
+    style={{ transform: 'translate(0, 0)', transition: `transform ${initialTransformTranslateTime}` }}
   >
     {slides.map((slide, index) => (
       <Slide key={index} slide={slide} />

@@ -11,11 +11,16 @@ let distanceSwiped = 0;
 let startSwipeTime = 0;
 let isSwipeRight = true;
 
+const INITIAl_TRANSLATE_TRANSFORM_TIME = '0.05s';
+
+// To optimise SlideContainerComponent
+let currentSlide = 1;
+
 export default function Swiper({
   children,
 }) {
   const [paginationData, setPaginationData] = useState({
-    currentSlide: 1,
+    currentSlide,
   });
 
   const containerRef = useRef(null);
@@ -44,8 +49,9 @@ export default function Swiper({
     swiperRef.current.style.transform = `translate(${-roundedSlideDistance}px, 0px)`;
     distanceSwiped = roundedSlideDistance;
 
-    if (paginationData.currentSlide !== roundedSlide + 1) {
+    if (currentSlide !== roundedSlide + 1) {
       setPaginationData({ currentSlide: roundedSlide + 1 });
+      currentSlide = roundedSlide + 1;
     }
   };
 
@@ -70,7 +76,7 @@ export default function Swiper({
     isMoving = true;
     const clientX = getClientX(event);
     startingClientX = clientX + distanceSwiped;
-    swiperRef.current.style.transition = 'transform 0s';
+    swiperRef.current.style.transition = `transform ${INITIAl_TRANSLATE_TRANSFORM_TIME}`;
   };
 
   const isNextSlideOut = ({ distance }) => (
@@ -119,6 +125,7 @@ export default function Swiper({
     swiperRef.current.style.transform = `translate(${-distance}px, 0px)`;
 
     distanceSwiped = distance;
+    currentSlide = slideNumber;
     setPaginationData({ currentSlide: slideNumber });
   };
 
@@ -130,9 +137,9 @@ export default function Swiper({
 
       buttons.push(
         <PaginationButton
+          key={slideNumber}
           slideNumber={slideNumber}
           currentSlideNumber={paginationData.currentSlide}
-          key={slideNumber}
           onClick={handlePaginationButton}
         />,
       );
@@ -150,6 +157,7 @@ export default function Swiper({
           handleSwipeStart={handleSwipeStart}
           handleSwipe={handleSwipe}
           handleSwipeEnd={handleSwipeEnd}
+          initialTransformTranslateTime={INITIAl_TRANSLATE_TRANSFORM_TIME}
         />
       </div>
       <div className="pagination">
