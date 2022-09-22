@@ -1,5 +1,8 @@
 # Swiper
-It is desktop/mobile slider
+Desktop/mobile slider
+
+## Demo
+See demo [HERE](https://antonkolesnik.com/swiper/)
 
 ## Installation
 
