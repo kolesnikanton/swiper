@@ -11,8 +11,6 @@ let distanceSwiped = 0;
 let startSwipeTime = 0;
 let isSwipeRight = true;
 
-const INITIAl_TRANSLATE_TRANSFORM_TIME = '0.05s';
-
 // To optimise SlideContainerComponent
 let currentSlide = 1;
 
@@ -28,7 +26,7 @@ export default function Swiper({
 
   const slidesNumber = children.length;
 
-  const getSlideWidth = () => containerRef.current?.parentElement?.clientWidth;
+  const getSlideWidth = () => containerRef.current.parentElement.clientWidth;
 
   const getMaxDistanceToSwipe = () => getSlideWidth() * (children.length - 1);
 
@@ -76,7 +74,7 @@ export default function Swiper({
     isMoving = true;
     const clientX = getClientX(event);
     startingClientX = clientX + distanceSwiped;
-    swiperRef.current.style.transition = `transform ${INITIAl_TRANSLATE_TRANSFORM_TIME}`;
+    swiperRef.current.style.transition = 'transform 0s';
   };
 
   const isNextSlideOut = ({ distance }) => (
@@ -157,7 +155,6 @@ export default function Swiper({
           handleSwipeStart={handleSwipeStart}
           handleSwipe={handleSwipe}
           handleSwipeEnd={handleSwipeEnd}
-          initialTransformTranslateTime={INITIAl_TRANSLATE_TRANSFORM_TIME}
         />
       </div>
       <div className="pagination">
