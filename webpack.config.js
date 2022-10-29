@@ -1,15 +1,14 @@
-// eslint-disable-next-line import/no-extraneous-dependencies
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-  entry: './src/index.jsx',
+  entry: './src/Demo/index.jsx',
   resolve: {
     extensions: ['.js', '.jsx'],
   },
   plugins: [
     new HtmlWebpackPlugin({
       filename: 'index.html',
-      template: 'src/index.html',
+      template: 'src/Demo/index.html',
     }),
   ],
   mode: 'development',

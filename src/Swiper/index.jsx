@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import React, { useState, useRef } from 'react';
 
 import SlideContainer from './SlideContainer';
@@ -148,7 +147,7 @@ export default function Swiper({
 
   return (
     <>
-      <div ref={containerRef} className="container">
+      <div ref={containerRef} className="swiper-container">
         <SlideContainer
           slides={children}
           ref={swiperRef}
@@ -157,7 +156,7 @@ export default function Swiper({
           handleSwipeEnd={handleSwipeEnd}
         />
       </div>
-      <div className="pagination">
+      <div className="swiper-pagination">
         {renderPagination()}
       </div>
     </>

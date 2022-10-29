@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import React from 'react';
 
 import Slide from './Slide';
@@ -9,12 +8,9 @@ const SlideContainer = React.forwardRef(({
   handleSwipeEnd,
   slides,
 }, swiperRef) => (
-  /*
-    eslint-disable-next-line
-    jsx-a11y/no-static-element-interactions,
-    jsx-a11y/mouse-events-have-key-events
-  */
+  // eslint-disable-next-line jsx-a11y/mouse-events-have-key-events
   <div
+    role="presentation"
     className="swiper"
     onMouseDown={handleSwipeStart}
     onTouchStart={handleSwipeStart}

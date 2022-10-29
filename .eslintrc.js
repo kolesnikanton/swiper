@@ -24,5 +24,6 @@ module.exports = {
     'import/no-import-module-exports': 'off',
     'react/no-array-index-key': 'off',
     camelcase: 'off',
+    'react/prop-types': 'off',
   },
 };
