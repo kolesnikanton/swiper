@@ -1,17 +1,17 @@
 {
   "name": "@antonkolesnik/swiper",
   "author": "Anton Kolesnik <kolesnikanton@icloud.com>",
-  "description": "Desktop/mobile slider",
-  "version": "1.0.0-beta.13",
+  "description": "Lightweight react desktop/mobile swiper",
+  "version": "1.0.0-beta.14",
   "license": "MIT",
   "main": "lib/index.js",
   "homepage": "https://antonkolesnik.com/swiper/",
   "repository": {
     "type": "git",
-    "url": "https://github.com/kolesnikanton/slider"
+    "url": "https://github.com/kolesnikanton/swiper"
   },
   "bugs": {
-    "url": "https://github.com/kolesnikanton/slider/issues"
+    "url": "https://github.com/kolesnikanton/swiper/issues"
   },
   "engines": {
     "node": ">=16.13",
@@ -20,7 +20,8 @@
   "scripts": {
     "start": "webpack serve --env=dev",
     "babel": "npx babel src/Swiper/ --out-dir lib --copy-files",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "prepare": "npm run babel"
   },
   "peerDependencies": {
     "react": "^17.0.2",

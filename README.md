@@ -1,16 +1,16 @@
 # Swiper
-Desktop/mobile slider
+Lightweight react desktop/mobile swiper
 
 ## Demo
 See demo [HERE](https://antonkolesnik.com/swiper/)
 
 ## Installation
 
-#### Install with Yarn
+#### Install with NPM
 ```
 npm install @antonkolesnik/swiper
 ```
-#### Install with NPM
+#### Install with Yarn
 ```
 yarn add @antonkolesnik/swiper
 ```
@@ -20,12 +20,12 @@ yarn add @antonkolesnik/swiper
 ```js
 import Swiper from '@antonkolesnik/swiper';
 
-const Slider = () => (
-  <div style={{ width: '1000px' }}>
+const Demo = () => (
+  <div style={{ width: '600px', margin: '0 auto' }}>
     <Swiper>
-      <img alt="img1" src={img1} />
-      <TextComponent text={text} />
-      <img alt="img2" src={img2} />
+      <h1 style={{ background: 'black', color: 'white' }}>Slide 1</h1>
+      <img src="https://antonkolesnik.com/38df7b2ad210d02fbd81.jpg" />
+      <img src="https://antonkolesnik.com/ab52dae85dcb5a8277e8.jpg" />
     </Swiper>
   </div>
 );
