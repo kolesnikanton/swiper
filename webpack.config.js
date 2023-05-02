@@ -1,9 +1,10 @@
+// eslint-disable-next-line @typescript-eslint/no-var-requires
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-  entry: './src/Demo/index.jsx',
+  entry: './src/Demo/index.tsx',
   resolve: {
-    extensions: ['.js', '.jsx'],
+    extensions: ['.ts', '.tsx', '.js'],
   },
   plugins: [
     new HtmlWebpackPlugin({
@@ -22,7 +23,7 @@ module.exports = {
   },
   module: {
     rules: [
-      { test: /\.jsx?$/, use: 'babel-loader' },
+      { test: /\.tsx?$/, use: 'ts-loader' },
       {
         test: /\.css$/,
         use: [

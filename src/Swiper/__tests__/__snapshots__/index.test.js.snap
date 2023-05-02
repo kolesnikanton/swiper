@@ -1,0 +1,211 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`render 1`] = `
+[
+  <div
+    className="swiper-container"
+  >
+    <div
+      className="swiper"
+      onMouseDown={[Function]}
+      onMouseMove={[Function]}
+      onMouseOut={[Function]}
+      onMouseUp={[Function]}
+      onTouchEnd={[Function]}
+      onTouchMove={[Function]}
+      onTouchStart={[Function]}
+      role="presentation"
+      style={
+        {
+          "transform": "translate(0, 0)",
+          "transition": "transform 0s",
+        }
+      }
+    >
+      <div
+        className="swiper-slide"
+      >
+        <img
+          alt="1"
+          src="https://antonkolesnik.com/38df7b2ad210d02fbd81.jpg"
+        />
+      </div>
+      <div
+        className="swiper-slide"
+      >
+        <h1
+          className="slide"
+        >
+          Slide 2
+        </h1>
+      </div>
+      <div
+        className="swiper-slide"
+      >
+        <img
+          alt="3"
+          src="https://antonkolesnik.com/6ab753c0e5734915a8c9.jpg"
+        />
+      </div>
+    </div>
+  </div>,
+  <div
+    className="swiper-pagination"
+  >
+    <button
+      aria-label="Slide 1"
+      className="swiper-pagination__button swiper-pagination__button_active"
+      disabled={true}
+      id="1"
+      onClick={[Function]}
+      type="button"
+    />
+    <button
+      aria-label="Slide 2"
+      className="swiper-pagination__button"
+      disabled={false}
+      id="2"
+      onClick={[Function]}
+      type="button"
+    />
+    <button
+      aria-label="Slide 3"
+      className="swiper-pagination__button"
+      disabled={false}
+      id="3"
+      onClick={[Function]}
+      type="button"
+    />
+  </div>,
+]
+`;
+
+exports[`render with additional props 1`] = `
+[
+  <div
+    className="swiper-container custom-class"
+  >
+    <div
+      className="swiper"
+      onMouseDown={[Function]}
+      onMouseMove={[Function]}
+      onMouseOut={[Function]}
+      onMouseUp={[Function]}
+      onTouchEnd={[Function]}
+      onTouchMove={[Function]}
+      onTouchStart={[Function]}
+      role="presentation"
+      style={
+        {
+          "transform": "translate(0, 0)",
+          "transition": "transform 0s",
+        }
+      }
+    >
+      <div
+        className="swiper-slide"
+      >
+        <img
+          alt="1"
+          src="https://antonkolesnik.com/38df7b2ad210d02fbd81.jpg"
+        />
+      </div>
+      <div
+        className="swiper-slide"
+      >
+        <h1
+          className="slide"
+        >
+          Slide 2
+        </h1>
+      </div>
+      <div
+        className="swiper-slide"
+      >
+        <img
+          alt="3"
+          src="https://antonkolesnik.com/6ab753c0e5734915a8c9.jpg"
+        />
+      </div>
+    </div>
+  </div>,
+  <div
+    className="swiper-pagination"
+  >
+    <button
+      aria-label="Slide 1"
+      className="swiper-pagination__button swiper-pagination__button_active"
+      disabled={true}
+      id="1"
+      onClick={[Function]}
+      type="button"
+    />
+    <button
+      aria-label="Slide 2"
+      className="swiper-pagination__button"
+      disabled={false}
+      id="2"
+      onClick={[Function]}
+      type="button"
+    />
+    <button
+      aria-label="Slide 3"
+      className="swiper-pagination__button"
+      disabled={false}
+      id="3"
+      onClick={[Function]}
+      type="button"
+    />
+  </div>,
+]
+`;
+
+exports[`render without pagination 1`] = `
+<div
+  className="swiper-container"
+>
+  <div
+    className="swiper"
+    onMouseDown={[Function]}
+    onMouseMove={[Function]}
+    onMouseOut={[Function]}
+    onMouseUp={[Function]}
+    onTouchEnd={[Function]}
+    onTouchMove={[Function]}
+    onTouchStart={[Function]}
+    role="presentation"
+    style={
+      {
+        "transform": "translate(0, 0)",
+        "transition": "transform 0s",
+      }
+    }
+  >
+    <div
+      className="swiper-slide"
+    >
+      <img
+        alt="1"
+        src="https://antonkolesnik.com/38df7b2ad210d02fbd81.jpg"
+      />
+    </div>
+    <div
+      className="swiper-slide"
+    >
+      <h1
+        className="slide"
+      >
+        Slide 2
+      </h1>
+    </div>
+    <div
+      className="swiper-slide"
+    >
+      <img
+        alt="3"
+        src="https://antonkolesnik.com/6ab753c0e5734915a8c9.jpg"
+      />
+    </div>
+  </div>
+</div>
+`;

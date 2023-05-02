@@ -1,8 +1,14 @@
 import React from 'react';
 
+type PaginationButtonT = {
+  slideNumber: number,
+  currentSlideNumber: number,
+  onClick: (slideNumber: number) => void,
+}
+
 export default function PaginationButton({
   slideNumber, currentSlideNumber, onClick,
-}) {
+}: PaginationButtonT) {
   const handlePaginationButton = () => {
     onClick(slideNumber);
   };
@@ -13,7 +19,7 @@ export default function PaginationButton({
   return (
     <button
       aria-label={`Slide ${slideNumber}`}
-      id={slideNumber}
+      id={String(slideNumber)}
       disabled={isActive}
       className={className}
       type="button"

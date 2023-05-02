@@ -2,12 +2,19 @@ import React from 'react';
 
 import Slide from './Slide';
 
+type SlideContainerT = {
+  handleSwipeStart: (event: React.TouchEvent | React.MouseEvent) => void,
+  handleSwipe: (event: React.TouchEvent | React.MouseEvent) => void,
+  handleSwipeEnd: (event: React.TouchEvent | React.MouseEvent) => void,
+  slides: Array<React.ReactElement>
+}
+
 const SlideContainer = React.forwardRef(({
   handleSwipeStart,
   handleSwipe,
   handleSwipeEnd,
   slides,
-}, swiperRef) => (
+}: SlideContainerT, swiperRef: React.Ref<HTMLDivElement>) => (
   // eslint-disable-next-line jsx-a11y/mouse-events-have-key-events
   <div
     role="presentation"

@@ -1,6 +1,10 @@
 import React from 'react';
 
-export default class Slide extends React.PureComponent {
+type SlideT = {
+  slide: React.ReactElement,
+}
+
+export default class Slide extends React.PureComponent<SlideT> {
   render() {
     const { slide } = this.props;
     return (
