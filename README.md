@@ -21,6 +21,7 @@ yarn add @antonkolesnik/swiper
 * `onSwipeStart`
 * `onSwipe`
 * `onSwipeEnd`
+* `onPaginationChange`
 
 ## Usage example
 
