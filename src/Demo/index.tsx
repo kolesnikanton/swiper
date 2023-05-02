@@ -37,6 +37,7 @@ function Demo() {
           onSwipeStart={(onSwipeStartData) => console.log({ onSwipeStartData })}
           onSwipe={(onSwipeData) => console.log({ onSwipeData })}
           onSwipeEnd={(onSwipeEndData) => console.log({ onSwipeEndData })}
+          onPaginationChange={(onPaginationData) => console.log({ onPaginationData })}
         >
           <img
             alt="text"

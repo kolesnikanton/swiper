@@ -23,10 +23,13 @@ type SwiperT = {
     { event, currentSlide }: { event: React.TouchEvent | React.MouseEvent } & OnSwipe
   ) => void,
   onSwipeEnd?: ({ currentSlide }: OnSwipe) => void,
+  onPaginationChange?: (
+    { previousSlideNumber, slideNumber }: { previousSlideNumber: number, slideNumber: number}
+  ) => void,
 }
 
 export default function Swiper({
-  children, className, withPagination = true, onSwipeStart, onSwipe, onSwipeEnd,
+  children, className, withPagination = true, onSwipeStart, onSwipe, onSwipeEnd, onPaginationChange,
 }: SwiperT) {
   const containerRef = useRef(null);
   const swiperRef = useRef(null);
@@ -170,6 +173,10 @@ export default function Swiper({
     swiperRef.current.style.transition = 'transform 0.8s ease-in';
     const distance = getSlideWidth() * (slideNumber - 1);
     swiperRef.current.style.transform = `translate(${-distance}px, 0px)`;
+
+    if (onPaginationChange) {
+      onPaginationChange({ previousSlideNumber: currentSlideRef.current, slideNumber });
+    }
 
     swipedDistanceRef.current = distance;
     currentSlideRef.current = slideNumber;

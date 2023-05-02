@@ -47,6 +47,7 @@ test('render with additional props', () => {
       onSwipeStart={() => ({})}
       onSwipe={() => ({})}
       onSwipeEnd={() => ({})}
+      onPaginationChange={() => ({})}
     >
       <img
         alt="1"
