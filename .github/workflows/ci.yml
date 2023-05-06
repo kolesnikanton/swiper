@@ -1,5 +1,5 @@
-name: run-test
-run-name: ${{ github.actor }} Run lint/test
+name: run-ci
+run-name: ${{ github.actor }} Run lint/test/publish
 on: [push]
 jobs:
   run-test:
@@ -18,3 +18,5 @@ jobs:
       run: npm run lint
     - name: Run test
       run: npm run test
+    - name: Run publish.sh
+      run: bash scripts/publish.sh
