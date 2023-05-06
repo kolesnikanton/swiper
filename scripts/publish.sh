@@ -10,6 +10,7 @@ if [[ "$current_version" == "$last_commit_version" ]]; then
   echo "The version has not changed"
 else
   echo "The version has changed. Publishing"
+  echo $NPM_AUTH_TOKEN
   echo "//registry.npmjs.org/:_authToken=$NPM_AUTH_TOKEN" > ~/.npmrc
   npm whoami
   npm publish --dry-run --access public
