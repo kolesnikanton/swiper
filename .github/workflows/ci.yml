@@ -1,8 +1,8 @@
-name: run-ci
+name: ci
 run-name: ${{ github.actor }} Run lint/test/publish
 on: [push]
 jobs:
-  run-test:
+  run-ci:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout
