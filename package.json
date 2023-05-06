@@ -21,7 +21,7 @@
     "start": "webpack serve --env=dev",
     "babel": "npx babel src/Swiper --out-dir lib --delete-dir-on-start --extensions .tsx,.js,.snap --ignore src/**/__tests__ --copy-files --no-copy-ignored",
     "lint": "eslint .",
-    "prepare": "npm run babel",
+    "prepublishOnly": "npm run babel",
     "test": "jest src"
   },
   "peerDependencies": {
