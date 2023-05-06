@@ -4,7 +4,7 @@ import SlideContainer from './SlideContainer';
 import PaginationButton from './PaginationButton';
 import './index.css';
 
-type OnSwipe = {
+type OnSwipeT = {
   currentSlide: number,
   swipedDistance: number,
   startSwipeTime: number,
@@ -17,12 +17,12 @@ type SwiperT = {
   className?: string,
   withPagination?: boolean,
   onSwipeStart?: (
-    { event, currentSlide }: { event: React.TouchEvent | React.MouseEvent } & OnSwipe
+    { event, currentSlide }: { event: React.TouchEvent | React.MouseEvent } & OnSwipeT
   ) => void,
   onSwipe?: (
-    { event, currentSlide }: { event: React.TouchEvent | React.MouseEvent } & OnSwipe
+    { event, currentSlide }: { event: React.TouchEvent | React.MouseEvent } & OnSwipeT
   ) => void,
-  onSwipeEnd?: ({ currentSlide }: OnSwipe) => void,
+  onSwipeEnd?: ({ currentSlide }: OnSwipeT) => void,
   onPaginationChange?: (
     { previousSlideNumber, slideNumber }: { previousSlideNumber: number, slideNumber: number}
   ) => void,

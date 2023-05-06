@@ -27,7 +27,7 @@ module.exports = {
   rules: {
     // warn
     '@typescript-eslint/no-unused-vars': 'warn',
-    'react/jsx-filename-extension': ['warn', { extensions: ['.ts', '.tsx', 'test.js'] }],
+    'react/jsx-filename-extension': ['warn', { extensions: ['.ts', '.tsx', '.test.js'] }],
 
     // off
     'no-console': 'off',
