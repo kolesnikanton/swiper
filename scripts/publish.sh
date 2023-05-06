@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -e
+
 current_version=$(grep -Eo '"version": "[^"]+"' package.json | sed 's/"version": "//;s/"//')
 last_commit_version=$(git show HEAD:package.json | grep -Eo '"version": "[^"]+"' | sed 's/"version": "//;s/"//')
 
