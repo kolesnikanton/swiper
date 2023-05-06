@@ -12,6 +12,6 @@ jobs:
       with:
         node-version: '16'
     - name: Run lint
-      run: npm lint
+      run: npm run lint
     - name: Run test
-      run: npm test
+      run: npm run test
