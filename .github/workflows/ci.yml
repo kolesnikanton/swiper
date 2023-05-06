@@ -19,6 +19,6 @@ jobs:
     - name: Run test
       run: npm run test
     - name: Run publish.sh
-      run: bash scripts/publish.sh
+      run: npm publish --dry-run
       env:
         NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
