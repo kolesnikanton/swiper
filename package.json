@@ -2,7 +2,7 @@
   "name": "@antonkolesnik/swiper",
   "author": "Anton Kolesnik <kolesnikanton@icloud.com>",
   "description": "Lightweight react desktop/mobile swiper",
-  "version": "1.0.0-beta.16",
+  "version": "1.0.0-beta.17",
   "license": "MIT",
   "main": "lib/index.js",
   "homepage": "https://antonkolesnik.com/swiper/",
