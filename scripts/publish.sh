@@ -1,7 +1,7 @@
 #!/bin/bash
 
 current_version=$(grep -Eo '"version": "[^"]+"' package.json | sed 's/"version": "//;s/"//')
-last_commit_version=$(git show HEAD:package.json | grep -Eo '"version": "[^"]+"' | sed 's/"version": "//;s/"//')
+last_commit_version=$(npm info @antonkolesnik/swiper version)
 
 echo $current_version
 echo $last_commit_version
