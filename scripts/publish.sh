@@ -10,5 +10,6 @@ if [[ "$current_version" == "$last_commit_version" ]]; then
   echo "The version has not changed"
 else
   echo "The version has changed. Publishing"
+  npm whoami
   npm publish --dry-run --access public
 fi
