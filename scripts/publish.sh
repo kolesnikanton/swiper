@@ -10,8 +10,6 @@ if [[ "$current_version" == "$last_commit_version" ]]; then
   echo "The version has not changed"
 else
   echo "The version has changed. Publishing"
-  echo "NODE_AUTH_TOKEN = $NODE_AUTH_TOKEN"
-  echo "//registry.npmjs.org/:_authToken=$NODE_AUTH_TOKEN" > ~/.npmrc
   npm whoami
   npm publish --dry-run --access public
 fi
