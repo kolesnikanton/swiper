@@ -10,6 +10,5 @@ if [[ "$current_version" == "$last_commit_version" ]]; then
   echo "The version has not changed. Skipping"
 else
   echo "The version has changed. Publishing"
-  npm whoami
   npm publish --access public
 fi
