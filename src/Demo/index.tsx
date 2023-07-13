@@ -85,4 +85,7 @@ function Demo() {
   );
 }
 
-createRoot(document.getElementById('main')).render(<Demo />);
+const main = document.getElementById('main');
+if (main) {
+  createRoot(main).render(<Demo />);
+}

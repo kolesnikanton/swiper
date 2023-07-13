@@ -1,15 +1,15 @@
 #!/bin/bash
 
-current_version=$(grep -Eo '"version": "[^"]+"' package.json | sed 's/"version": "//;s/"//')
+current_version=$(node -p "require('./package.json').version")
 last_commit_version=$(npm info @antonkolesnik/swiper version)
 
-echo $current_version
-echo $last_commit_version
+echo CURRENT_VERSION = $current_version
+echo LAST_PUBLISHED_VERSION = $last_commit_version
 
 if [[ "$current_version" == "$last_commit_version" ]]; then
-  echo "The version has not changed"
+  echo "The version has not changed. Skipping"
 else
   echo "The version has changed. Publishing"
   npm whoami
-  npm publish --dry-run --access public
+  npm publish --access public
 fi
