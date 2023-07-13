@@ -23,7 +23,7 @@
     "build:files": "npx babel src/Swiper --out-dir lib --delete-dir-on-start --extensions .tsx,.js,.snap --ignore src/**/__tests__ --copy-files --no-copy-ignored",
     "build": "npm run build:files && npm run build:types",
     "lint": "eslint .",
-    "prepublishOnly": "npm run babel",
+    "prepublishOnly": "npm run build",
     "test": "jest src",
     "typecheck": "tsc --pretty --noEmit"
   },
