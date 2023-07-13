@@ -46,7 +46,15 @@ export default function Swiper({
 
   const slidesNumber = children.length;
 
-  const getSlideWidth = () => containerRef.current.parentElement.clientWidth;
+  const getSlideWidth = () => {
+    if (!containerRef.current) {
+      return 0;
+    }
+
+    const containerEl = (containerRef.current as HTMLDivElement);
+    return containerEl.parentElement ? containerEl.parentElement.clientWidth : 0;
+  };
+
   const getMaxDistanceToSwipe = () => getSlideWidth() * (children.length - 1);
   const getRoundedSlideNumber = () => Math.round(swipedDistanceRef.current / getSlideWidth());
 
@@ -65,10 +73,15 @@ export default function Swiper({
   const roundSlide = (
     { roundedSlide, slideWidth }: { roundedSlide: number, slideWidth: number },
   ) => {
+    if (!swiperRef.current) {
+      return;
+    }
+
     const roundedSlideDistance = roundedSlide * slideWidth;
 
-    swiperRef.current.style.transition = 'transform 0.2s';
-    swiperRef.current.style.transform = `translate(${-roundedSlideDistance}px, 0px)`;
+    const swiperElement = swiperRef.current as HTMLDivElement;
+    swiperElement.style.transition = 'transform 0.2s';
+    swiperElement.style.transform = `translate(${-roundedSlideDistance}px, 0px)`;
     swipedDistanceRef.current = roundedSlideDistance;
 
     if (currentSlideRef.current !== roundedSlide + 1) {
@@ -94,11 +107,15 @@ export default function Swiper({
   };
 
   const handleSwipeStart = (event: React.TouchEvent | React.MouseEvent) => {
+    if (!swiperRef.current) {
+      return;
+    }
+
     startSwipeTimeRef.current = Date.now();
     isMovingRef.current = true;
     const clientX = getClientX(event);
     startClientXRef.current = clientX + swipedDistanceRef.current;
-    swiperRef.current.style.transition = 'transform 0s';
+    (swiperRef.current as HTMLDivElement).style.transition = 'transform 0s';
 
     if (onSwipeStart) {
       onSwipeStart({
@@ -141,7 +158,7 @@ export default function Swiper({
   };
 
   const handleSwipe = (event: React.TouchEvent | React.MouseEvent) => {
-    if (!isMovingRef.current) {
+    if (!isMovingRef.current || !swiperRef.current) {
       return;
     }
 
@@ -154,7 +171,7 @@ export default function Swiper({
 
     isSwipeRightRef.current = swipedDistanceRef.current > distance;
 
-    swiperRef.current.style.transform = `translate(${-distance}px, 0px)`;
+    (swiperRef.current as HTMLDivElement).style.transform = `translate(${-distance}px, 0px)`;
     swipedDistanceRef.current = distance;
 
     if (onSwipe) {
@@ -170,9 +187,14 @@ export default function Swiper({
   };
 
   const handlePaginationButton = (slideNumber: number) => {
-    swiperRef.current.style.transition = 'transform 0.8s ease-in';
+    if (!swiperRef.current) {
+      return;
+    }
+
+    const swiperElement = swiperRef.current as HTMLDivElement;
+    swiperElement.style.transition = 'transform 0.8s ease-in';
     const distance = getSlideWidth() * (slideNumber - 1);
-    swiperRef.current.style.transform = `translate(${-distance}px, 0px)`;
+    swiperElement.style.transform = `translate(${-distance}px, 0px)`;
 
     if (onPaginationChange) {
       onPaginationChange({ previousSlideNumber: currentSlideRef.current, slideNumber });
