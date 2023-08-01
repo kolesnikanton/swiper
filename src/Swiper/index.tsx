@@ -2,7 +2,6 @@ import React, { useState, useRef } from 'react';
 
 import SlideContainer from './SlideContainer';
 import PaginationButton from './PaginationButton';
-import './index.css';
 
 type OnSwipeT = {
   currentSlide: number,

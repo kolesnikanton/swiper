@@ -15,6 +15,11 @@ npm install @antonkolesnik/swiper
 yarn add @antonkolesnik/swiper
 ```
 
+## Stylesheets
+```
+import '@antonkolesnik/swiper/lib/styles.css';
+```
+
 ## Props:
 * `className`: CSS class name to style the swiper
 * `withPagination (true by default)`: Enable/disable pagination
@@ -27,6 +32,7 @@ yarn add @antonkolesnik/swiper
 
 ```js
 import Swiper from '@antonkolesnik/swiper';
+import '@antonkolesnik/swiper/lib/styles.css';
 
 const Demo = () => (
   <div style={{ width: '600px', margin: '0 auto' }}>

@@ -3,6 +3,7 @@ import { createRoot } from 'react-dom/client';
 
 import Swiper from '../Swiper';
 
+import '../Swiper/styles.css';
 import './index.css';
 
 function Demo() {
