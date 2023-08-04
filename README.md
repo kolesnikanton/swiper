@@ -7,16 +7,16 @@ See demo [HERE](https://antonkolesnik.com/swiper/)
 ## Installation
 
 #### Install with NPM
-```
+```bash
 npm install @antonkolesnik/swiper
 ```
 #### Install with Yarn
-```
+```bash
 yarn add @antonkolesnik/swiper
 ```
 
 ## Stylesheets
-```
+```js
 import '@antonkolesnik/swiper/lib/styles.css';
 ```
 

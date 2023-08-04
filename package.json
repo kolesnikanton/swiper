@@ -2,7 +2,7 @@
   "name": "@antonkolesnik/swiper",
   "author": "Anton Kolesnik <kolesnikanton@icloud.com>",
   "description": "Lightweight react desktop/mobile swiper",
-  "version": "1.0.0-beta.18",
+  "version": "1.0.0-beta.19",
   "license": "MIT",
   "main": "lib/index.js",
   "homepage": "https://antonkolesnik.com/swiper/",
@@ -14,8 +14,8 @@
     "url": "https://github.com/kolesnikanton/swiper/issues"
   },
   "engines": {
-    "node": "=18",
-    "npm": "=9"
+    "node": ">=16",
+    "npm": ">=7"
   },
   "scripts": {
     "start": "webpack serve --env=dev",
