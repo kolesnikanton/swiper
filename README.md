@@ -35,11 +35,10 @@ import Swiper from '@antonkolesnik/swiper';
 import '@antonkolesnik/swiper/lib/styles.css';
 
 const Demo = () => (
-  <div style={{ width: '600px', margin: '0 auto' }}>
+  <div style={{ width: '600px' }}>
     <Swiper className="custom" withPagination>
-      <h1 style={{ background: 'black', color: 'white' }}>Slide 1</h1>
-      <img src="https://antonkolesnik.com/38df7b2ad210d02fbd81.jpg" />
-      <img src="https://antonkolesnik.com/ab52dae85dcb5a8277e8.jpg" />
+      <div style={{ background: 'black', color: 'white' }}>Slide 1</div>
+      <img src="img.jpg" />
     </Swiper>
   </div>
 );
